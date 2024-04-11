@@ -4,21 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/dataprovider.dart';
+import 'RetryableNetworkImage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
-
   final provider = dataProvider();
   Map<String, Color> typeColors = {
-'Poison': Colors.purple,
+    'Poison': Colors.purple,
     'Ground': Colors.brown,
     'Rock': Colors.blueGrey,
     'Bug': Colors.lightGreen,
@@ -48,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Color.fromRGBO(r ~/ n, g ~/ n, b ~/ n, 1);
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -57,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       provider.getAllPokemons();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,14 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Pokedex'),
       ),
       body: Padding(
-        padding:EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Consumer<dataProvider>(
           builder: (context, provider, child) {
             if (provider.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            }return GridView.builder(
+            }
+            return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, // Adjust the number of items per row
                 crossAxisSpacing: 10, // Horizontal space between items
@@ -81,43 +80,46 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: provider.pokemons.length,
               itemBuilder: (context, index) {
                 final pokemon = provider.pokemons[index];
-                final colorpokemon =getAverageColor(pokemon.type);
+                final colorpokemon = getAverageColor(pokemon.type);
                 return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => PokemonDetails(pokemon: pokemon, colors:colorpokemon ,),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PokemonDetails(
+                          pokemon: pokemon,
+                          colors: colorpokemon,
                         ),
-                      );
-                    }
-
-                    ,child: Card(
+                      ),
+                    );
+                  },
+                  child: Card(
                     color: colorpokemon,
                     child: Stack(
                       children: [
                         Align(
-                        alignment: Alignment.bottomRight
-                        ,child: Hero(
-
-                            tag: pokemon.id,child: Image.network(pokemon.img))),
+                          alignment: Alignment.bottomRight,
+                          child: Hero(
+                            tag: pokemon.id,
+                            child: RetryableNetworkImage(
+                              imageUrl: pokemon.img,
+                              maxRetries: 3,
+                            ),
+                          ),
+                        ),
                         ListTile(
-                          title: Text(pokemon.name),
-                          subtitle: Text(pokemon.type.join(', ')), // Join the types with a comma
+                          title: Text(pokemon.name,style: const TextStyle(fontSize: 17,color: Colors.white,fontWeight: FontWeight.bold),),
+                          subtitle: Row(children:[ Container(padding: const EdgeInsets.fromLTRB(0,5,5,5),decoration: BoxDecoration( borderRadius:BorderRadius.circular(5),color: Colors.black.withOpacity(0.3),),child: Text(pokemon.type.join(', '),style: const TextStyle(color: Colors.white,fontSize:13,fontWeight: FontWeight.bold),)),Spacer()]),
                         ),
                       ],
                     ),
                   ),
                 );
+
               },
             );
-
           },
         ),
-      )
+      ),
     );
   }
-
 }
-
-
-

@@ -16,12 +16,4 @@ class Data {
     }
     return [];
   }
-
-
-
-  //
-  // static Future<Map<String, dynamic>> getPokemonDetails(String name) async {
-  //   final response = await dio.get('https://pokeapi.co/api/v2/pokemon/$name');
-  //   return response.data;
-  // }
 }

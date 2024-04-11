@@ -10,7 +10,7 @@ import 'package:assignment_2/Screens/pokemonDetails.dart';
 class PokemonDetails extends StatelessWidget {
   final Pokemon pokemon;
 
-  var colors;
+  final Color colors;
 
    PokemonDetails({super.key, required this.pokemon,required this.colors});
 
