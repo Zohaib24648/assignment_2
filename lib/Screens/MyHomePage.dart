@@ -97,7 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Align(
                         alignment: Alignment.bottomRight
-                        ,child: Image.network(pokemon.img)),
+                        ,child: Hero(
+
+                            tag: pokemon.id,child: Image.network(pokemon.img))),
                         ListTile(
                           title: Text(pokemon.name),
                           subtitle: Text(pokemon.type.join(', ')), // Join the types with a comma
