@@ -15,6 +15,7 @@ class Pokemon {
   List<double> multipliers;
   List<String> weaknesses;
   List<Evolution> nextEvolution;
+  List<Evolution> prevEvolution;
 
   Pokemon({
     required this.id,
@@ -33,6 +34,7 @@ class Pokemon {
     required this.multipliers,
     required this.weaknesses,
     required this.nextEvolution,
+    required this.prevEvolution
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
@@ -56,7 +58,12 @@ class Pokemon {
           ? List<Evolution>.from(
           json['next_evolution'].map((e) => Evolution.fromJson(e)))
           : [],
+      prevEvolution: json['prev_evolution'] != null
+          ? List<Evolution>.from(
+          json['prev_evolution'].map((e) => Evolution.fromJson(e)))
+          : [],
     );
+
   }
 }
 
