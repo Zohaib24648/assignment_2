@@ -18,7 +18,7 @@ class PokemonDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
      children: [ Scaffold(
-        appBar: AppBar(backgroundColor: Colors.transparent,shadowColor: Colors.transparent,),
+        appBar: AppBar(backgroundColor: Colors.transparent,shadowColor: Colors.transparent, title: Center(child: Text("Pokemon Details",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:25),)),),
         body: Consumer<dataProvider>(
           builder: (context, provider, child) {
             return Column(

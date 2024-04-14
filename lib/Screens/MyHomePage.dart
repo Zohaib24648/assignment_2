@@ -35,15 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
   };
 
   Color getAverageColor(List<String> types) {
-    int r = 0, g = 0, b = 0;
-    for (String type in types) {
-      Color color = typeColors[type] ?? Colors.black; // Default to black if type not found
-      r += color.red;
-      g += color.green;
-      b += color.blue;
-    }
-    int n = types.length;
-    return Color.fromRGBO(r ~/ n, g ~/ n, b ~/ n, 1);
+    return typeColors[types[0]] ?? Colors.black;
+    // int r = 0, g = 0, b = 0;
+    // for (String type in types) {
+    //   Color color = typeColors[type] ?? Colors.black; // Default to black if type not found
+    //   r += color.red;
+    //   g += color.green;
+    //   b += color.blue;
+    // }
+    // int n = types.length;
+    // return Color.fromRGBO(r ~/ n, g ~/ n, b ~/ n, 1);
+
   }
 
   @override
@@ -59,7 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pokedex'),
+        title: Center(child: const Text('Pokedex',style: TextStyle(fontWeight: FontWeight.bold,fontSize:25),)),
+
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -93,24 +98,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   child: Card(
+                    elevation:10, shadowColor: colorpokemon,
                     color: colorpokemon,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Hero(
-                            tag: pokemon.id,
-                            child: RetryableNetworkImage(
-                              imageUrl: pokemon.img,
-                              maxRetries: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Hero(
+                              tag: pokemon.id,
+                              child: RetryableNetworkImage(
+                                imageUrl: pokemon.img,
+                                maxRetries: 3,
+                              ),
                             ),
                           ),
-                        ),
-                        ListTile(
-                          title: Text(pokemon.name,style: const TextStyle(fontSize: 17,color: Colors.white,fontWeight: FontWeight.bold),),
-                          subtitle: Row(children:[ Container(padding: const EdgeInsets.fromLTRB(0,5,5,5),decoration: BoxDecoration( borderRadius:BorderRadius.circular(5),color: Colors.black.withOpacity(0.3),),child: Text(pokemon.type.join(', '),style: const TextStyle(color: Colors.white,fontSize:13,fontWeight: FontWeight.bold),)),Spacer()]),
-                        ),
-                      ],
+                          ListTile(
+                            title: Text(pokemon.name,style: const TextStyle(fontSize: 17,color: Colors.white,fontWeight: FontWeight.bold),),
+                            subtitle: Row(children:[ Container(padding: const EdgeInsets.fromLTRB(0,5,5,5),decoration: BoxDecoration( borderRadius:BorderRadius.circular(5),color: Colors.black.withOpacity(0.3),),child: Text(pokemon.type[0],style: const TextStyle(color: Colors.white,fontSize:13,fontWeight: FontWeight.bold),)),Spacer()]),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
