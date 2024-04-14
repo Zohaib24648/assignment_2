@@ -16,23 +16,24 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final provider = dataProvider();
   Map<String, Color> typeColors = {
-    'Poison': Colors.purple,
-    'Ground': Colors.brown,
-    'Rock': Colors.blueGrey,
-    'Bug': Colors.lightGreen,
-    'Ghost': Colors.indigo,
-    'Steel': Colors.lime,
-    'Fire': Colors.orange,
-    'Water': Colors.blue,
-    'Grass': Colors.green,
-    'Electric': Colors.yellow,
-    'Psychic': Colors.pink,
-    'Ice': Colors.cyan,
-    'Dragon': Colors.indigo,
-    'Fairy': Colors.pink,
-    'Fighting': Colors.red,
-    'Normal': Colors.grey,
+    'Poison': Color(0xFF9F5BBA), // a vibrant purple
+    'Ground': Color(0xFFDE7C4F), // a rich, earthy orange
+    'Rock': Color(0xFF909EAA), // a deeper blue-grey
+    'Bug': Color(0xFF92C12A), // a brighter, lime-like green
+    'Ghost': Color(0xFF6060B0), // a deep indigo with a hint of purple
+    'Steel': Color(0xFF4F6272), // a darker steel blue
+    'Fire': Color(0xFFFA6A4D), // a fiery red-orange
+    'Water': Color(0xFF429BED), // a bright cerulean blue
+    'Grass': Color(0xFF4BC658), // a fresh, bright green
+    'Electric': Color(0xFFF4D03F), // a bright, vivid yellow
+    'Psychic': Color(0xFFEA4492), // a deep magenta
+    'Ice': Color(0xFF80DEEA), // a vibrant cyan, more intense
+    'Dragon': Color(0xFF6035B7), // a royal, deep purple
+    'Fairy': Color(0xFFF484B1), // a vibrant, light pink
+    'Fighting': Color(0xFFD0504D), // a strong, saturated red
+    'Normal': Color(0xFFB9B9B9), // a medium light grey
   };
+
 
   Color getAverageColor(List<String> types) {
     return typeColors[types[0]] ?? Colors.black;
